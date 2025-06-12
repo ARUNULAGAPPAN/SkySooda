@@ -1,0 +1,185 @@
+/* --- 1. General, Reset, and New Background --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* UPDATED: Simplified and brightened color palette for max visibility */
+    --primary-text-color: #ffffff;    /* Pure white for all text */
+    --accent-color: #00aaff;          /* A vibrant, electric blue */
+    --glow-color: rgba(0, 170, 255, 0.7); 
+    --shadow-color: rgba(0, 0, 0, 0.5); /* A dark shadow for text contrast */
+    
+    /* Card background colors (remain the same) */
+    --background-color: rgba(255, 255, 255, 0.25);
+    --border-color: rgba(255, 255, 255, 0.5);
+}
+
+body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url('./background.jpg') no-repeat center center/cover;
+    
+    /* UPDATED: All text will be pure white by default */
+    color: var(--primary-text-color); 
+    overflow: hidden;
+}
+
+
+/* --- 2. Weather Card - Glowing Glass Effect --- */
+.weather-card {
+    width: 90%;
+    max-width: 420px;
+    padding: 2.5rem;
+    border-radius: 25px;
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 32px 0 var(--glow-color);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.weather-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 16px 40px 0 var(--glow-color);
+}
+
+/* --- 3. Text Styling with VISIBILITY and DYNAMIC Glow --- */
+
+/* Base styles for the glowing text elements */
+.location-container .city,
+.weather-container .temperature,
+.weather-container .description {
+    transition: text-shadow 0.3s ease-out;
+}
+
+.location-container .city {
+    font-size: 2.8rem;
+    font-weight: 600;
+    text-shadow: 0 0 8px var(--glow-color);
+}
+
+.location-container .date {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    /* UPDATED: Add a subtle dark shadow to make the date pop */
+    text-shadow: 0 1px 3px var(--shadow-color);
+}
+
+.weather-container .weather-icon {
+    width: 160px;
+    height: 160px;
+    margin: -25px 0;
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.15));
+}
+
+.weather-container .temperature {
+    font-size: 4.5rem;
+    font-weight: 300;
+    margin: 0;
+    text-shadow: 0 0 10px var(--glow-color);
+}
+
+.weather-container .description {
+    font-size: 1.3rem;
+    font-weight: 400;
+    text-transform: capitalize;
+    margin-bottom: 2.5rem;
+    /* UPDATED: Give it a subtle shadow by default for visibility */
+    text-shadow: 0 1px 3px var(--shadow-color);
+}
+
+/* --- THE HOVER GLOW EFFECT --- */
+.location-container .city:hover,
+.weather-container .temperature:hover {
+    cursor: pointer;
+    text-shadow:
+        0 0 5px #fff,
+        0 0 15px #fff,
+        0 0 30px var(--accent-color),
+        0 0 50px var(--accent-color);
+}
+
+.weather-container .description:hover {
+    cursor: pointer;
+    text-shadow: 
+        0 0 5px rgba(255, 255, 255, 0.8),
+        0 0 10px var(--accent-color);
+}
+
+
+.details-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+    padding-top: 2rem;
+}
+
+.details-container .detail p {
+    /* UPDATED: Add a subtle shadow to all detail text for visibility */
+    text-shadow: 0 1px 3px var(--shadow-color);
+}
+
+.details-container .detail p:first-child {
+    font-size: 0.9rem;
+    font-weight: 400;
+    /* UPDATED: Removed opacity to make labels fully visible */
+    opacity: 1; 
+}
+
+.details-container .detail p:last-child {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+
+/* --- 4. Star Trailing Cursor (Unchanged) --- */
+.trail {
+    position: absolute;
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    pointer-events: none;
+    z-index: 1000;
+    animation: trail-fade 0.8s linear forwards;
+    box-shadow:
+        0 0 5px var(--accent-color),
+        0 0 15px var(--accent-color),
+        0 0 30px var(--accent-color);
+}
+
+@keyframes trail-fade {
+    from { transform: scale(1); opacity: 1; }
+    to { transform: scale(0); opacity: 0; }
+}
+
+
+/* --- 5. Responsiveness (Unchanged) --- */
+@media (max-width: 480px) {
+    .weather-card {
+        padding: 2rem;
+    }
+
+    .location-container .city {
+        font-size: 2.2rem;
+    }
+
+    .weather-container .temperature {
+        font-size: 3.5rem;
+    }
+
+    .weather-container .weather-icon {
+        width: 130px;
+        height: 130px;
+    }
+}
